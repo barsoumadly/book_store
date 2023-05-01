@@ -5,7 +5,6 @@ import person.used.app.Customer;
 import person.used.app.User;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +25,8 @@ public class UserFileHandling {
         addAdministrator(administratorData);
     }
 
-    private static ArrayList<ArrayList<String>> getDataFromFile(String filePath) {
+    private static ArrayList<ArrayList<String>>
+    getDataFromFile(String filePath) {
         ArrayList<ArrayList<String>> userData = new ArrayList<>();
         try {
             File myFile = new File(filePath);
@@ -92,18 +92,6 @@ public class UserFileHandling {
         } catch (IOException error) {
             System.out.println("An error occurred");
             error.printStackTrace();
-        }
-    }
-
-    public static void reset_Files() {
-        try{
-            File f2 = new File("src/data/store/Borrowed.txt");
-            new FileOutputStream(f2).close();
-
-            File f4 = new File("src/data/store/Cart_books.txt");
-            new FileOutputStream(f4).close();
-        } catch (IOException e){
-           e.printStackTrace();
         }
     }
 }

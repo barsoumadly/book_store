@@ -1,12 +1,13 @@
 package main.view;
 
 import book.list.BookFileHandling;
+import data.store.CustomerFileHandling;
 import data.store.UserFileHandling;
 
 public class Menu {
-    public static void startApplication(){
+    public static void startApplication() {
         UserFileHandling.readFile();
-        UserFileHandling.reset_Files();
+        CustomerFileHandling.readCartFile();
         BookFileHandling.readFile();
         Menu.displayMainView();
     }

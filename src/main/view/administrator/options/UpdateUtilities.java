@@ -3,7 +3,7 @@ package main.view.administrator.options;
 import book.list.Book;
 import book.list.BookFileHandling;
 import main.view.ConsoleReader;
-import main.view.customer.options.CustomerOptionList;
+import main.view.customer.options.SearchUtilities;
 
 import java.util.HashMap;
 
@@ -59,7 +59,7 @@ public class UpdateUtilities {
     private static void updateBookName() {
         boolean isFound = false;
         String bookName = ConsoleReader.readBookName();
-        CustomerOptionList.searchForBookName(bookName);
+        SearchUtilities.searchForBookName(bookName);
         for (int i = 0; i < Book.books.size(); i++) {
             if (Book.books.get(i).getName().equals(bookName)) {
                 isFound = true;
@@ -74,7 +74,7 @@ public class UpdateUtilities {
     private static void updateBookType() {
         boolean isFound = false;
         String bookName = ConsoleReader.readBookName();
-        CustomerOptionList.searchForBookName(bookName);
+        SearchUtilities.searchForBookName(bookName);
         for (int i = 0; i < Book.books.size(); i++) {
             if (Book.books.get(i).getName().equals(bookName)) {
                 isFound = true;
@@ -89,7 +89,7 @@ public class UpdateUtilities {
     private static void updateAuthorName() {
         boolean isFound = false;
         String bookName = ConsoleReader.readBookName();
-        CustomerOptionList.searchForBookName(bookName);
+        SearchUtilities.searchForBookName(bookName);
         for (int i = 0; i < Book.books.size(); i++) {
             if (Book.books.get(i).getName().equals(bookName)) {
                 isFound = true;
@@ -104,7 +104,7 @@ public class UpdateUtilities {
     private static void updatePrice() {
         boolean isFound = false;
         String bookName = ConsoleReader.readBookName();
-        CustomerOptionList.searchForBookName(bookName);
+        SearchUtilities.searchForBookName(bookName);
         for (int i = 0; i < Book.books.size(); i++) {
             if (Book.books.get(i).getName().equals(bookName)) {
                 isFound = true;

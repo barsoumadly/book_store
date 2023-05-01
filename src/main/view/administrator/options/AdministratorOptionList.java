@@ -3,8 +3,8 @@ package main.view.administrator.options;
 import book.list.Book;
 import book.list.BookFileHandling;
 import main.view.ConsoleReader;
-import main.view.customer.options.CustomerOptionList;
 import main.view.Menu;
+import main.view.customer.options.SearchUtilities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -87,7 +87,7 @@ public class AdministratorOptionList {
     private static void deleteBook() {
         boolean isFound = false;
         String bookName = ConsoleReader.readBookName();
-        CustomerOptionList.searchForBookName(bookName);
+        SearchUtilities.searchForBookName(bookName);
         for (int i = 0; i < Book.books.size(); i++) {
             if (Book.books.get(i).getName().equals(bookName)) {
                 isFound = true;
