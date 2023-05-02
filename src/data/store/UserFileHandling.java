@@ -1,8 +1,8 @@
 package data.store;
 
-import person.used.app.Administrator;
-import person.used.app.Customer;
-import person.used.app.User;
+import main.classes.Administrator;
+import main.classes.Customer;
+import main.classes.User;
 
 import java.io.File;
 import java.io.FileWriter;

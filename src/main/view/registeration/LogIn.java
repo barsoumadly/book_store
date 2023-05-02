@@ -1,14 +1,14 @@
 package main.view.registeration;
 
-import main.view.ConsoleReader;
-import main.view.Menu;
-import main.view.OptionUtilities;
+import main.view.common.ConsoleReader;
+import main.view.menu.Menu;
+import main.view.menu.OptionUtilities;
 import main.view.administrator.options.AdministratorOptionList;
 import main.view.customer.options.CustomerOptionList;
-import person.used.app.Administrator;
-import person.used.app.Customer;
+import main.classes.Administrator;
+import main.classes.Customer;
 
-public class LogIn extends OptionUtilities {
+abstract public class LogIn extends OptionUtilities {
     public static void displayLoginMenu() {
         System.out.println("\t1- Login as administrator");
         System.out.println("\t2- Login as customer");

@@ -1,11 +1,12 @@
 package main.view.customer.options;
 
-import book.list.Book;
-import main.view.ConsoleReader;
+import main.classes.Book;
+import main.view.common.CommonUtilities;
+import main.view.common.ConsoleReader;
 
 import java.util.HashMap;
 
-public class SearchUtilities {
+abstract public class SearchUtilities {
     enum Options {
         SEARCH_BOOK, SEARCH_AUTHOR, SEARCH_TYPE,
         SEARCH_PRICE, RETURN_BACK, WRONG
@@ -30,7 +31,10 @@ public class SearchUtilities {
         return searchOptions.get(option);
     }
 
-    public static void search() {
+    public static void displaySearchMenu() {
+        ConsoleReader.makeSpace();
+        System.out.println("\t\t\t ***  Welcome " +
+                CustomerOptionList.customerName + "  ***");
         System.out.println("\t1- Search for book name:");
         System.out.println("\t2- Search for author:");
         System.out.println("\t3- Search for type:");
@@ -54,7 +58,7 @@ public class SearchUtilities {
             default -> {
                 System.out.println("\tInvalid Option");
                 ConsoleReader.makeSpace();
-                search();
+                displaySearchMenu();
             }
         }
     }
@@ -76,13 +80,9 @@ public class SearchUtilities {
             String price = ConsoleReader.readprice();
             searchForPrice(price);
         } else {
-            ConsoleReader.makeSpace();
-            CustomerOptionList.displayOptionsMenu(
-                    CustomerOptionList.customerName);
+            CommonUtilities.returnBackToCustomerMenu();
         }
-        CustomerAdvancedOptionList.
-                displayMenuOptions(
-                        CustomerOptionList.customerName);
+        CommonUtilities.goToAdvancedMenu();
     }
 
     public static void searchForBookName(String bookName) {

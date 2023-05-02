@@ -1,7 +1,8 @@
 package main.view.customer.options;
 
 import data.store.CartFileHandling;
-import main.view.ConsoleReader;
+import main.view.common.CommonUtilities;
+import main.view.common.ConsoleReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;

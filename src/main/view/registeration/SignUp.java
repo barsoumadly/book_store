@@ -1,18 +1,18 @@
 package main.view.registeration;
 
 import data.store.UserFileHandling;
-import main.view.ConsoleReader;
-import main.view.Menu;
-import main.view.OptionUtilities;
+import main.view.common.ConsoleReader;
+import main.view.menu.Menu;
+import main.view.menu.OptionUtilities;
 import main.view.administrator.options.AdministratorOptionList;
 import main.view.customer.options.CustomerOptionList;
-import person.used.app.Administrator;
-import person.used.app.Customer;
-import person.used.app.User;
+import main.classes.Administrator;
+import main.classes.Customer;
+import main.classes.User;
 
 import java.util.ArrayList;
 
-public class SignUp extends OptionUtilities {
+abstract public class SignUp extends OptionUtilities {
     public static void displaySignUpMenu() {
         System.out.println("\t1- Sign up as administrator");
         System.out.println("\t2- Sign up as customer");

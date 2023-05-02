@@ -2,9 +2,10 @@ package main.view.customer.options;
 
 import java.util.HashMap;
 
-import main.view.ConsoleReader;
+import main.view.common.CommonUtilities;
+import main.view.common.ConsoleReader;
 
-public class CustomerAdvancedOptionList {
+abstract public class CustomerAdvancedOptionList {
     private enum Options {
         ADD_TO_BUY_CART, ADD_TO_BORROW_CART,
         RETURN_BACK, WRONG

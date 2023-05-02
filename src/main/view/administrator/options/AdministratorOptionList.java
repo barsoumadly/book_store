@@ -1,9 +1,9 @@
 package main.view.administrator.options;
 
-import book.list.Book;
-import book.list.BookFileHandling;
-import main.view.ConsoleReader;
-import main.view.Menu;
+import main.classes.Book;
+import data.store.BookFileHandling;
+import main.view.common.ConsoleReader;
+import main.view.menu.Menu;
 import main.view.customer.options.SearchUtilities;
 
 import java.util.ArrayList;

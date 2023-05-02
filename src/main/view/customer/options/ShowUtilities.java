@@ -1,7 +1,8 @@
 package main.view.customer.options;
 
-import book.list.Book;
-import main.view.ConsoleReader;
+import main.classes.Book;
+import main.view.common.CommonUtilities;
+import main.view.common.ConsoleReader;
 
 import java.util.HashMap;
 
@@ -32,6 +33,9 @@ abstract public class ShowUtilities {
     }
 
     public static void displayOptionsMenu() {
+        ConsoleReader.makeSpace();
+        System.out.println("\t\t\t ***  Welcome " +
+                CustomerOptionList.customerName + "  ***");
         System.out.println("\t1- Adventure books");
         System.out.println("\t2- Historical books");
         System.out.println("\t3- Fantasy books");

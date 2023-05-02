@@ -1,10 +1,13 @@
 package main.view.customer.options;
 
 import data.store.BorrowFileHandling;
-import main.view.ConsoleReader;
+import main.view.common.CommonUtilities;
+import main.view.common.ConsoleReader;
 
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.HashMap;
+import java.util.Objects;
 
 abstract public class BorrowUtilities {
     private enum Options {
@@ -108,7 +111,12 @@ abstract public class BorrowUtilities {
             , String bookName) {
         ArrayList<String> bookList = new ArrayList<>();
         bookList.add(bookName);
-        bookList.add(CommonUtilities.getBookPrice(bookName));
+        double price = Double.parseDouble(
+                Objects.requireNonNull(CommonUtilities.
+                        getBookPrice(bookName))) * 0.1f;
+        Formatter formatter = new Formatter();
+        formatter.format("%.1f", price);
+        bookList.add(formatter.toString());
         String key = CommonUtilities
                 .getEmailByCustomer(customerName);
         BorrowFileHandling.borrowBooks.put(key, bookList);
@@ -127,21 +135,5 @@ abstract public class BorrowUtilities {
         System.out.println("\tThe cart is carrying already 1 book");
         System.out.println("\tCart is full");
         System.out.println("\tCart can be held only 1 books");
-    }
-
-    public static void returnBook() {
-        String key = BorrowFileHandling.getKeyByCustomer(
-                CustomerOptionList.customerName);
-        if (key != null) {
-            System.out.println("\tBook was returned successfully");
-            BorrowFileHandling.borrowBooks.remove(key);
-            BorrowFileHandling.borrowKeys.remove(key);
-            CommonUtilities.writeFile(BorrowFileHandling.borrowFilePath
-                    , BorrowFileHandling.borrowBooks
-                    , BorrowFileHandling.borrowKeys);
-        } else {
-            System.out.println("\tNo book was borrowed");
-        }
-        CommonUtilities.returnBackToCustomerMenu();
     }
 }

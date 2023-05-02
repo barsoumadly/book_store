@@ -2,7 +2,8 @@ package main.view.customer.options;
 
 import data.store.BorrowFileHandling;
 import data.store.CartFileHandling;
-import main.view.ConsoleReader;
+import main.view.common.CommonUtilities;
+import main.view.common.ConsoleReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ abstract public class KnowBillUtilities {
     }
 
     public static void displayOptionsMenu() {
+        ConsoleReader.makeSpace();
         System.out.println("\t\t\t ***  Welcome " +
                 CustomerOptionList.customerName + "  ***");
         System.out.println("\t1- Bill of bought books");
@@ -102,7 +104,7 @@ abstract public class KnowBillUtilities {
         endingOfBill();
     }
 
-    private static void beginningOFBill(){
+    private static void beginningOFBill() {
         System.out.println("\t\t\t\t**Book Store**");
         System.out.println("Date: 18/5/2023");
         System.out.println("Customer Name: " +
@@ -111,7 +113,7 @@ abstract public class KnowBillUtilities {
                 "===================================");
     }
 
-    private static void endingOfBill(){
+    private static void endingOfBill() {
         System.out.println("============================" +
                 "===================================");
         System.out.println("\t\t\tThank you for trusting us ^_^");
