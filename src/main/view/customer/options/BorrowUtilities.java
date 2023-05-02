@@ -35,12 +35,26 @@ abstract public class BorrowUtilities {
     private static void executeOption(String option) {
         switch (mapper(option)) {
             case RETURN_BOOK -> returnBook();
-            case RETURN_BACK -> CommonFunctions.returnBackToCustomerMenu();
+            case RETURN_BACK -> CommonUtilities.
+                    returnBackToCustomerMenu();
             default -> {
                 System.out.println("\tInvalid option");
                 displayOptionsMenu();
             }
         }
+    }
+
+    public static void showBorrowedBook() {
+        String key = BorrowFileHandling.
+                getKeyByCustomer(
+                        CustomerOptionList.customerName);
+        if (key != null) {
+            BorrowFileHandling.displayValueOfKey(key);
+            BorrowUtilities.displayOptionsMenu();
+        } else {
+            System.out.println("\tNo books was borrowed");
+        }
+        CommonUtilities.returnBackToCustomerMenu();
     }
 
     public static void returnBook() {
@@ -50,12 +64,12 @@ abstract public class BorrowUtilities {
             System.out.println("\tBook was returned successfully");
             BorrowFileHandling.borrowBooks.remove(key);
             BorrowFileHandling.borrowKeys.remove(key);
-            CommonFunctions.writeFile(BorrowFileHandling.borrowFilePath
+            CommonUtilities.writeFile(BorrowFileHandling.borrowFilePath
                     , BorrowFileHandling.borrowBooks
                     , BorrowFileHandling.borrowKeys);
         } else {
             System.out.println("\tNo book was borrowed");
         }
-        CommonFunctions.returnBackToCustomerMenu();
+        CommonUtilities.returnBackToCustomerMenu();
     }
 }

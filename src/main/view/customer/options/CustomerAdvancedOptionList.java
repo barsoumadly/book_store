@@ -40,7 +40,7 @@ public class CustomerAdvancedOptionList {
                 "only 3 books)");
         System.out.println("\t2- Borrow a book(You can't borrow " +
                 "more than 1 book)");
-        System.out.println("\t4- Return back");
+        System.out.println("\t3- Return back");
         executeOption(ConsoleReader.getOption());
     }
 
@@ -48,11 +48,11 @@ public class CustomerAdvancedOptionList {
         switch (mapper(option)) {
             case ADD_TO_CART -> BuyUtilities.addToCart();
             case BORROW -> borrowBook();
-            case RETURN_BACK -> CommonFunctions
+            case RETURN_BACK -> CommonUtilities
                     .returnBackToCustomerMenu();
             default -> {
                 System.out.println("\tInvalid Option");
-                CommonFunctions.returnBackToCustomerMenu();
+                CommonUtilities.goToAdvancedMenu();
             }
         }
     }

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CommonFunctions {
+abstract public class CommonUtilities {
     public static void writeFile(String filePath
             , HashMap<String, ArrayList<String>> list
             , ArrayList<String> keys) {
@@ -66,6 +66,12 @@ public class CommonFunctions {
     public static void returnBackToCustomerMenu() {
         ConsoleReader.makeSpace();
         CustomerOptionList.displayOptionsMenu(
+                CustomerOptionList.customerName);
+    }
+
+    public static void goToAdvancedMenu() {
+        ConsoleReader.makeSpace();
+        CustomerAdvancedOptionList.displayMenuOptions(
                 CustomerOptionList.customerName);
     }
 }

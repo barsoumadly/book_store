@@ -36,12 +36,24 @@ abstract public class BuyUtilities {
     private static void executeOption(String option) {
         switch (mapper(option)) {
             case PROCESSED_TO_BUY -> buyBook();
-            case RETURN_BACK -> CommonFunctions
+            case RETURN_BACK -> CommonUtilities
                     .returnBackToCustomerMenu();
             default -> {
                 System.out.println("\tInvalid option");
                 displayOptionsMenu();
             }
+        }
+    }
+
+    public static void showCart() {
+        String key = CartFileHandling.
+                getKeyByCustomer(CustomerOptionList.customerName);
+        if (key != null) {
+            CartFileHandling.displayValueOfKey(key);
+            BuyUtilities.displayOptionsMenu();
+        } else {
+            System.out.println("\tNo books added to cart");
+            CommonUtilities.returnBackToCustomerMenu();
         }
     }
 
@@ -51,9 +63,9 @@ abstract public class BuyUtilities {
                 CustomerOptionList.customerName);
         CartFileHandling.cartBooks.remove(key);
         CartFileHandling.cartKeys.remove(key);
-        CommonFunctions.writeFile(CartFileHandling.cartFilePath
+        CommonUtilities.writeFile(CartFileHandling.cartFilePath
                 , CartFileHandling.cartBooks, CartFileHandling.cartKeys);
-        CommonFunctions.returnBackToCustomerMenu();
+        CommonUtilities.returnBackToCustomerMenu();
     }
 
     private static void knowBill() {
@@ -87,7 +99,7 @@ abstract public class BuyUtilities {
 
     public static void addToCart() {
         String bookName = ConsoleReader.readBookName().toLowerCase();
-        if (CommonFunctions.isBookExist(bookName)) {
+        if (CommonUtilities.isBookExist(bookName)) {
             String key = CartFileHandling.getKeyByCustomer(
                     CustomerOptionList.customerName);
             if (key != null) {
@@ -107,7 +119,7 @@ abstract public class BuyUtilities {
                 confirmAddingBook(CartFileHandling.
                         getKeyByCustomer(CustomerOptionList.customerName));
             }
-            CommonFunctions.returnBackToCustomerMenu();
+            CommonUtilities.returnBackToCustomerMenu();
         } else {
             System.out.println("\tInvalid book name");
             addToCart();
@@ -128,9 +140,9 @@ abstract public class BuyUtilities {
 
     private static void addBookToList(String key, String bookName) {
         CartFileHandling.cartBooks.get(key).add(bookName);
-        CartFileHandling.cartBooks.get(key).add(CommonFunctions
+        CartFileHandling.cartBooks.get(key).add(CommonUtilities
                 .getBookPrice(bookName));
-        CommonFunctions.writeFile(CartFileHandling.cartFilePath
+        CommonUtilities.writeFile(CartFileHandling.cartFilePath
                 , CartFileHandling.cartBooks, CartFileHandling.cartKeys);
     }
 
@@ -138,12 +150,12 @@ abstract public class BuyUtilities {
             , String bookName) {
         ArrayList<String> bookList = new ArrayList<>();
         bookList.add(bookName);
-        bookList.add(CommonFunctions.getBookPrice(bookName));
-        String key = CommonFunctions
+        bookList.add(CommonUtilities.getBookPrice(bookName));
+        String key = CommonUtilities
                 .getEmailByCustomer(customerName);
         CartFileHandling.cartBooks.put(key, bookList);
         CartFileHandling.cartKeys.add(key);
-        CommonFunctions.writeFile(CartFileHandling.cartFilePath
+        CommonUtilities.writeFile(CartFileHandling.cartFilePath
                 , CartFileHandling.cartBooks, CartFileHandling.cartKeys);
     }
 

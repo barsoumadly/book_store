@@ -1,8 +1,5 @@
 package main.view.customer.options;
 
-import book.list.Book;
-import data.store.BorrowFileHandling;
-import data.store.CartFileHandling;
 import main.view.ConsoleReader;
 import main.view.Menu;
 
@@ -60,10 +57,11 @@ public class CustomerOptionList {
     private static void executeOption(String option) {
         switch (mapper(option)) {
             case SEARCH_BOOK -> SearchUtilities.search();
-            case SHOW_BORROWED_BOOKS -> showBorrowedBook();
+            case SHOW_BORROWED_BOOKS -> BorrowUtilities
+                    .showBorrowedBook();
             case RETURN_BOOK -> BorrowUtilities.returnBook();
-            case SHOW_BOOKS -> showBookList();
-            case SHOW_CART -> showCart();
+            case SHOW_BOOKS -> ShowUtilities.displayOptionsMenu();
+            case SHOW_CART -> BuyUtilities.showCart();
             case KNOW_BILL -> knowBill(Data);
             case LOGOUT -> {
                 ConsoleReader.makeSpace();
@@ -71,42 +69,9 @@ public class CustomerOptionList {
             }
             default -> {
                 System.out.println("\tInvalid Option");
-                CommonFunctions.returnBackToCustomerMenu();
+                CommonUtilities.returnBackToCustomerMenu();
             }
         }
-    }
-
-    private static void showCart() {
-        String key = CartFileHandling.
-                getKeyByCustomer(customerName);
-        if (key != null) {
-            CartFileHandling.displayValueOfKey(key);
-            BuyUtilities.displayOptionsMenu();
-        } else {
-            System.out.println("\tNo books added to cart");
-            CommonFunctions.returnBackToCustomerMenu();
-        }
-    }
-
-    private static void showBorrowedBook() {
-        String key = BorrowFileHandling.
-                getKeyByCustomer(customerName);
-        if (key != null) {
-            BorrowFileHandling.displayValueOfKey(key);
-            BorrowUtilities.displayOptionsMenu();
-        } else {
-            System.out.println("\tNo books was borrowed");
-        }
-        CommonFunctions.returnBackToCustomerMenu();
-    }
-
-    private static void showBookList() {
-        for (int i = 0; i < Book.books.size(); i++) {
-            System.out.println(Book.books.get(i).toString());
-        }
-        ConsoleReader.makeSpace();
-        CustomerAdvancedOptionList.
-                displayMenuOptions(customerName);
     }
 
     protected static void knowBill(ArrayList<String> Data) {
