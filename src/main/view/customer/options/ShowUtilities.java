@@ -5,7 +5,7 @@ import main.view.ConsoleReader;
 
 import java.util.HashMap;
 
-public class ShowUtilities {
+abstract public class ShowUtilities {
     private enum Options {
         ADVENTURE, HISTORICAL, FANTASY,
         SCIENCE_FICTION, ALL_BOOKS, RETURN_BACK, WRONG

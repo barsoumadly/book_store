@@ -53,4 +53,8 @@ public class BorrowFileHandling {
                     + "\n**---------------------------------**");
         }
     }
+
+    public static ArrayList<String> getValueByKey(String key) {
+        return borrowBooks.get(key);
+    }
 }

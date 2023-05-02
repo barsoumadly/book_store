@@ -58,7 +58,7 @@ abstract public class BuyUtilities {
     }
 
     private static void buyBook() {
-        knowBill();
+        KnowBillUtilities.knowBuyBill();
         String key = CartFileHandling.getKeyByCustomer(
                 CustomerOptionList.customerName);
         CartFileHandling.cartBooks.remove(key);
@@ -68,36 +68,15 @@ abstract public class BuyUtilities {
         CommonUtilities.returnBackToCustomerMenu();
     }
 
-    private static void knowBill() {
-        System.out.println("\t\t\t\t**Book Store**");
-        System.out.println("Date: 7/5/2023");
-        System.out.println("Customer Name: " +
-                CustomerOptionList.customerName);
-        System.out.println("\n============================" +
-                "===================================");
-        double totalCost = displayBooksInCart();
-        System.out.println("\t Total: " + totalCost + "$");
-        System.out.println("============================" +
-                "===================================");
-        System.out.println("\t\t\tThank you for trusting us ^_^");
-    }
-
-    private static double displayBooksInCart() {
+    public static double displayBooksInCart() {
         String key = CartFileHandling.getKeyByCustomer(
                 CustomerOptionList.customerName);
         ArrayList<String> books =
                 CartFileHandling.getValueByKey(key);
-        double totalCost = 0.0;
-        for (int i = 0; i < books.size(); i += 2) {
-            System.out.println("\nBook name: " + books.get(i) +
-                    "\nPrice: " + books.get(i + 1) +
-                    "$" + "\n----------------------------");
-            totalCost += Double.parseDouble(books.get(i + 1));
-        }
-        return totalCost;
+        return CommonUtilities.displayBookList(books);
     }
 
-    public static void addToCart() {
+    public static void addToBuyCart() {
         String bookName = ConsoleReader.readBookName().toLowerCase();
         if (CommonUtilities.isBookExist(bookName)) {
             String key = CartFileHandling.getKeyByCustomer(
@@ -112,7 +91,7 @@ abstract public class BuyUtilities {
                         cartIsFull(key);
                     }
                 } else {
-                    System.out.println("\tThe book has been already added");
+                    System.out.println("\tThis book has been already added");
                 }
             } else {
                 addNewBook(CustomerOptionList.customerName, bookName);
@@ -122,7 +101,7 @@ abstract public class BuyUtilities {
             CommonUtilities.returnBackToCustomerMenu();
         } else {
             System.out.println("\tInvalid book name");
-            addToCart();
+            addToBuyCart();
         }
     }
 

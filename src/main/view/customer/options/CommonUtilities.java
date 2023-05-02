@@ -63,6 +63,17 @@ abstract public class CommonUtilities {
         return null;
     }
 
+    public static double displayBookList(ArrayList<String> books) {
+        double totalCost = 0.0;
+        for (int i = 0; i < books.size(); i += 2) {
+            System.out.println("\nBook name: " + books.get(i) +
+                    "\nPrice: " + books.get(i + 1) +
+                    "$" + "\n----------------------------");
+            totalCost += Double.parseDouble(books.get(i + 1));
+        }
+        return totalCost;
+    }
+
     public static void returnBackToCustomerMenu() {
         ConsoleReader.makeSpace();
         CustomerOptionList.displayOptionsMenu(
