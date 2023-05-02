@@ -81,7 +81,7 @@ public class SearchUtilities {
                     CustomerOptionList.customerName);
         }
         CustomerAdvancedOptionList.
-                displayCustomerOptionsMenu(
+                displayMenuOptions(
                         CustomerOptionList.customerName);
     }
 

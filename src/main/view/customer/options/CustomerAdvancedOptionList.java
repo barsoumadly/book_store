@@ -1,6 +1,5 @@
 package main.view.customer.options;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.FileNotFoundException;
 
@@ -13,100 +12,52 @@ import java.io.*;
 public class CustomerAdvancedOptionList {
     private static String customerName;
 
-    private enum CustomerAdvancedOptions {
-        ADD__CART, BORROW, BUY, WRONG, BACK
+    private enum Options {
+        ADD_TO_CART, BORROW, RETURN_BACK, WRONG
     }
 
-    private static final HashMap<String, CustomerAdvancedOptionList.CustomerAdvancedOptions> userAdvancedOptions
+    private static final HashMap<String, Options> userAdvancedOptions
             = new HashMap<>();
 
-    private static void setMenuOptions() {
-        userAdvancedOptions.put("1", CustomerAdvancedOptions.ADD__CART);
-        userAdvancedOptions.put("2", CustomerAdvancedOptionList.CustomerAdvancedOptions.BORROW);
-        userAdvancedOptions.put("3", CustomerAdvancedOptionList.CustomerAdvancedOptions.BUY);
-        userAdvancedOptions.put("4", CustomerAdvancedOptionList.CustomerAdvancedOptions.BACK);
+    private static void setOptions() {
+        userAdvancedOptions.put("1", Options.ADD_TO_CART);
+        userAdvancedOptions.put("2", Options.BORROW);
+        userAdvancedOptions.put("3", Options.RETURN_BACK);
     }
 
-    private static CustomerAdvancedOptionList.CustomerAdvancedOptions mapper(String option) {
-        setMenuOptions();
+    private static Options mapper(String option) {
+        setOptions();
         if (userAdvancedOptions.get(option) == null) {
-            return CustomerAdvancedOptionList.CustomerAdvancedOptions.WRONG;
+            return Options.WRONG;
         }
         return userAdvancedOptions.get(option);
     }
 
-    public static void displayCustomerOptionsMenu(String customerName) {
+    public static void displayMenuOptions(String customerName) {
         CustomerAdvancedOptionList.customerName = customerName;
         System.out.println("\t\t\t ***  Welcome " + customerName + "  ***");
-        System.out.println("\t1- Add to Cart(The cart holds only 5 books)");
-        System.out.println("\t2- Borrow a book");
-        System.out.println("\t3- Buy a book");
-        System.out.println("\t4- Back");
+        System.out.println("\t1- Add to Cart(The cart holds " +
+                "only 3 books)");
+        System.out.println("\t2- Borrow a book(You can't borrow " +
+                "more than 1 book)");
+        System.out.println("\t4- Return back");
         executeOption(ConsoleReader.getOption());
     }
 
     private static void executeOption(String option) {
         switch (mapper(option)) {
-            case ADD__CART -> Add_to_cart();
-            case BORROW -> Borrow_book();
-            case BUY -> Buy_book();
-            case BACK -> {
-                ConsoleReader.makeSpace();
-                CustomerOptionList.displayOptionsMenu(customerName);
-            }
+            case ADD_TO_CART -> BuyUtilities.addToCart();
+            case BORROW -> borrowBook();
+            case RETURN_BACK -> CommonFunctions
+                    .returnBackToCustomerMenu();
             default -> {
                 System.out.println("\tInvalid Option");
-                displayCustomerOptionsMenu(customerName);
+                CommonFunctions.returnBackToCustomerMenu();
             }
         }
     }
 
-    private static int size() {
-        int count = 0;
-        try {
-            File f = new File("src/data/store/Cart_books.txt");
-            Scanner sc = new Scanner(f);
-            while (sc.hasNextLine()) {
-                sc.nextLine();
-                count++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return count;
-    }
-
-    private static void Add_to_cart() {
-        try {
-            String filename = "src/data/store/Cart_books.txt";
-            String Book_name = ConsoleReader.readBookName();
-            String check = ReadBook(Book_name, filename);
-            if (!check(Book_name, filename) && check != null) {
-                int size = size();
-                if (size < 5) {
-                    try {
-                        FileWriter fw = new FileWriter(filename, true);
-                        CustomerOptionList.Data.add(check);
-                        fw.write(check + '\n');
-                        fw.close();
-                    } catch (IOException ioe) {
-                        System.err.println("IOException: " + ioe.getMessage());
-                    }
-                    System.out.println("Added Successfully!");
-                    System.out.println("The cart is carrying: " + size() + " Books" + '\n');
-                    System.out.println("**-----------------------------------------------**");
-                } else
-                    System.out.println("Cart is Full!\n");
-            } else {
-                System.out.println("Has already been added!\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        CustomerAdvancedOptionList.displayCustomerOptionsMenu(customerName);
-    }
-
-    private static void Borrow_book() {
+    private static void borrowBook() {
         try {
             String filename = "src/data/store/borrowed_books.txt";
             String Book_name = ConsoleReader.readBookName();
@@ -127,25 +78,7 @@ public class CustomerAdvancedOptionList {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        CustomerAdvancedOptionList.displayCustomerOptionsMenu(customerName);
-    }
-
-    private static void Buy_book() {
-        try {
-            String filename = "src/data/store/book.list.txt";
-            String Book_name = ConsoleReader.readBookName();
-            String check = ReadBook(Book_name, filename);
-            if (!check(Book_name, filename) && check != null) {
-                ArrayList<String> Data = new ArrayList<>();
-                Data.add(check);
-                CustomerOptionList.knowBill(Data);
-            } else {
-                System.out.println("** The book has already been purchased!\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        CustomerAdvancedOptionList.displayCustomerOptionsMenu(customerName);
+        CustomerAdvancedOptionList.displayMenuOptions(customerName);
     }
 
     public static String ReadBook(String pass, String nameFile) throws IOException {

@@ -44,12 +44,18 @@ abstract public class BorrowUtilities {
     }
 
     public static void returnBook() {
-        System.out.println("\tBook was returned successfully");
         String key = BorrowFileHandling.getKeyByCustomer(
                 CustomerOptionList.customerName);
-        BorrowFileHandling.borrowBooks.remove(key);
-        BorrowFileHandling.borrowKeys.remove(key);
-        CommonFunctions.writeFile(BorrowFileHandling.borrowFilePath
-                , BorrowFileHandling.borrowBooks, BorrowFileHandling.borrowKeys);
+        if (key != null) {
+            System.out.println("\tBook was returned successfully");
+            BorrowFileHandling.borrowBooks.remove(key);
+            BorrowFileHandling.borrowKeys.remove(key);
+            CommonFunctions.writeFile(BorrowFileHandling.borrowFilePath
+                    , BorrowFileHandling.borrowBooks
+                    , BorrowFileHandling.borrowKeys);
+        } else {
+            System.out.println("\tNo book was borrowed");
+        }
+        CommonFunctions.returnBackToCustomerMenu();
     }
 }

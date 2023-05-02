@@ -62,7 +62,7 @@ public class CustomerOptionList {
             case SEARCH_BOOK -> SearchUtilities.search();
             case SHOW_BORROWED_BOOKS -> showBorrowedBook();
             case RETURN_BOOK -> BorrowUtilities.returnBook();
-            case SHOW_BOOKS -> Books();
+            case SHOW_BOOKS -> showBookList();
             case SHOW_CART -> showCart();
             case KNOW_BILL -> knowBill(Data);
             case LOGOUT -> {
@@ -71,8 +71,7 @@ public class CustomerOptionList {
             }
             default -> {
                 System.out.println("\tInvalid Option");
-                ConsoleReader.makeSpace();
-                displayOptionsMenu(customerName);
+                CommonFunctions.returnBackToCustomerMenu();
             }
         }
     }
@@ -85,8 +84,8 @@ public class CustomerOptionList {
             BuyUtilities.displayOptionsMenu();
         } else {
             System.out.println("\tNo books added to cart");
+            CommonFunctions.returnBackToCustomerMenu();
         }
-        CommonFunctions.returnBackToCustomerMenu();
     }
 
     private static void showBorrowedBook() {
@@ -101,12 +100,13 @@ public class CustomerOptionList {
         CommonFunctions.returnBackToCustomerMenu();
     }
 
-    private static void Books() {
+    private static void showBookList() {
         for (int i = 0; i < Book.books.size(); i++) {
             System.out.println(Book.books.get(i).toString());
         }
         ConsoleReader.makeSpace();
-        CustomerAdvancedOptionList.displayCustomerOptionsMenu(customerName);
+        CustomerAdvancedOptionList.
+                displayMenuOptions(customerName);
     }
 
     protected static void knowBill(ArrayList<String> Data) {

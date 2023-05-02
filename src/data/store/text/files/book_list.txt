@@ -1,3 +1,4 @@
+the right stuff,joe tom wolfe,adventure,10
 congo,michael crichton,adventure,40
 treasure island,robert louis stevenson,adventure,90
 odyssey,homer,adventure,34

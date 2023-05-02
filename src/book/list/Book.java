@@ -1,7 +1,6 @@
 package book.list;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Book {
     private String name;
@@ -48,10 +47,11 @@ public class Book {
     public String toString() {
         return "\nBook name: " + name +
                 "\nAuthor: " + authorName +
-                "\nType: " + type+"\nPrice: " + price+"$\n**---------------------------------------**";
+                "\nType: " + type + "\nPrice: " + price +
+                "$\n**---------------------------------------**";
     }
 
-    public String originalString(){
-        return name+","+authorName+","+type+","+price;
+    public String originalString() {
+        return name + "," + authorName + "," + type + "," + price;
     }
 }

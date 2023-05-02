@@ -1,6 +1,8 @@
 package main.view.customer.options;
 
+import book.list.Book;
 import main.view.ConsoleReader;
+import person.used.app.Customer;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -29,6 +31,36 @@ public class CommonFunctions {
         } catch (IOException error) {
             error.printStackTrace();
         }
+    }
+
+    public static boolean isBookExist(String bookName) {
+        for (int i = 0; i < Book.books.size(); i++) {
+            if (Book.books.get(i).getName().
+                    equals(bookName.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String getBookPrice(String bookName) {
+        for (int i = 0; i < Book.books.size(); i++) {
+            if (Book.books.get(i).getName().
+                    equals(bookName.toLowerCase())) {
+                return Book.books.get(i).getPrice();
+            }
+        }
+        return null;
+    }
+
+    public static String getEmailByCustomer(String customerName) {
+        for (int i = 0; i < Customer.customerData.size(); i++) {
+            if (Customer.customerData.get(i).getFirstName()
+                    .equals(customerName)) {
+                return Customer.customerData.get(i).getEmailAddress();
+            }
+        }
+        return null;
     }
 
     public static void returnBackToCustomerMenu() {
