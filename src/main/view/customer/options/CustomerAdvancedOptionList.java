@@ -108,7 +108,7 @@ public class CustomerAdvancedOptionList {
 
     private static void Borrow_book() {
         try {
-            String filename = "src/data/store/Borrowed.txt";
+            String filename = "src/data/store/borrowed_books.txt";
             String Book_name = ConsoleReader.readBookName();
             String check = ReadBook(Book_name, filename);
             if (!check(Book_name, filename) && check != null) {

@@ -1,7 +1,8 @@
 package main.view.customer.options;
 
 import book.list.Book;
-import data.store.CustomerFileHandling;
+import data.store.BorrowFileHandling;
+import data.store.CartFileHandling;
 import main.view.ConsoleReader;
 import main.view.Menu;
 
@@ -14,30 +15,32 @@ public class CustomerOptionList {
     public static String customerName;
 
     enum Options {
-        SEARCH, BORROW, SHOW_BOOKS, SHOW_CART,
-        KNOW_BILL, LOGOUT, WRONG, BACK
+        SEARCH_BOOK, SHOW_BORROWED_BOOKS,
+        SHOW_BOOKS, SHOW_CART, RETURN_BOOK,
+        KNOW_BILL, LOGOUT, WRONG
     }
 
-    private static final HashMap<String, Options> userOptions
-            = new HashMap<>();
-    static final ArrayList<String> Data
-            = new ArrayList<>();
+    private static final HashMap<String, Options>
+            customerOptions = new HashMap<>();
+    static final ArrayList<String>
+            Data = new ArrayList<>();
 
     private static void setMenuOptions() {
-        userOptions.put("1", Options.SEARCH);
-        userOptions.put("2", Options.BORROW);
-        userOptions.put("3", Options.SHOW_BOOKS);
-        userOptions.put("4", Options.SHOW_CART);
-        userOptions.put("5", Options.KNOW_BILL);
-        userOptions.put("6", Options.LOGOUT);
+        customerOptions.put("1", Options.SEARCH_BOOK);
+        customerOptions.put("2", Options.SHOW_BORROWED_BOOKS);
+        customerOptions.put("3", Options.RETURN_BOOK);
+        customerOptions.put("4", Options.SHOW_BOOKS);
+        customerOptions.put("5", Options.SHOW_CART);
+        customerOptions.put("6", Options.KNOW_BILL);
+        customerOptions.put("7", Options.LOGOUT);
     }
 
     private static Options mapper(String option) {
         setMenuOptions();
-        if (userOptions.get(option) == null) {
+        if (customerOptions.get(option) == null) {
             return Options.WRONG;
         }
-        return userOptions.get(option);
+        return customerOptions.get(option);
     }
 
     public static void displayOptionsMenu(String customerName) {
@@ -45,18 +48,20 @@ public class CustomerOptionList {
         System.out.println("\t\t\t ***  Welcome " +
                 customerName + "  ***");
         System.out.println("\t1- Search for a book");
-        System.out.println("\t2- Show borrowed books");
-        System.out.println("\t3- Show book list");
-        System.out.println("\t4- Show cart");
-        System.out.println("\t5- Know the bill");
-        System.out.println("\t6- Log out");
+        System.out.println("\t2- Show borrowed book");
+        System.out.println("\t3- Return borrowed book");
+        System.out.println("\t4- Show book list");
+        System.out.println("\t5- Show cart");
+        System.out.println("\t6- Know the bill");
+        System.out.println("\t7- Log out");
         executeOption(ConsoleReader.getOption());
     }
 
     private static void executeOption(String option) {
         switch (mapper(option)) {
-            case SEARCH -> SearchUtilities.search();
-            case BORROW -> borrow();
+            case SEARCH_BOOK -> SearchUtilities.search();
+            case SHOW_BORROWED_BOOKS -> showBorrowedBook();
+            case RETURN_BOOK -> BorrowUtilities.returnBook();
             case SHOW_BOOKS -> Books();
             case SHOW_CART -> showCart();
             case KNOW_BILL -> knowBill(Data);
@@ -73,35 +78,27 @@ public class CustomerOptionList {
     }
 
     private static void showCart() {
-        String key = CustomerFileHandling.
+        String key = CartFileHandling.
                 getKeyByCustomer(customerName);
         if (key != null) {
-            CustomerFileHandling.displayValueOfKey(key);
+            CartFileHandling.displayValueOfKey(key);
             BuyUtilities.displayOptionsMenu();
         } else {
             System.out.println("\tNo books added to cart");
         }
-        ConsoleReader.makeSpace();
-        displayOptionsMenu(customerName);
+        CommonFunctions.returnBackToCustomerMenu();
     }
 
-    private static void borrow() {
-        try {
-            double sum = 0;
-            File myObj = new File("src/data/store/Borrowed.txt");
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                String[] parts = data.split(",");
-                System.out.println("\nBook name: " + parts[0] + "\nPrice: " + (Double.parseDouble(parts[3]) * 0.1) + "$" + "\n----------------------------");
-                sum += (Double.parseDouble(parts[3]) * 0.1);
-            }
-            System.out.println("\t ToTal: " + sum + "$\n");
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+    private static void showBorrowedBook() {
+        String key = BorrowFileHandling.
+                getKeyByCustomer(customerName);
+        if (key != null) {
+            BorrowFileHandling.displayValueOfKey(key);
+            BorrowUtilities.displayOptionsMenu();
+        } else {
+            System.out.println("\tNo books was borrowed");
         }
-        displayOptionsMenu(customerName);
+        CommonFunctions.returnBackToCustomerMenu();
     }
 
     private static void Books() {

@@ -12,9 +12,9 @@ import java.util.Scanner;
 
 public class UserFileHandling {
     public final static String customerFilePath =
-            "src/data/store/customers_data.txt";
+            "src/data/store/text/files/customers_data.txt";
     public final static String administratorFilePath =
-            "src/data/store/administrators_data.txt";
+            "src/data/store/text/files/administrators_data.txt";
 
     public static void readFile() {
         ArrayList<ArrayList<String>> customerData = getDataFromFile(

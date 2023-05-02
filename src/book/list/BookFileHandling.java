@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class BookFileHandling {
     public final static String bookFilePath =
-            "src/book/list/book_list.txt";
+            "src/data/store/text/files/book_list.txt";
 
     public static void readFile() {
         try {
