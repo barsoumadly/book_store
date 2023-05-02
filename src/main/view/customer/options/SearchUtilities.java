@@ -77,7 +77,7 @@ public class SearchUtilities {
             searchForPrice(price);
         } else {
             ConsoleReader.makeSpace();
-            CustomerOptionList.displayCustomerOptionsMenu(
+            CustomerOptionList.displayOptionsMenu(
                     CustomerOptionList.customerName);
         }
         CustomerAdvancedOptionList.

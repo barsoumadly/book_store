@@ -52,7 +52,7 @@ public class CustomerAdvancedOptionList {
             case BUY -> Buy_book();
             case BACK -> {
                 ConsoleReader.makeSpace();
-                CustomerOptionList.displayCustomerOptionsMenu(customerName);
+                CustomerOptionList.displayOptionsMenu(customerName);
             }
             default -> {
                 System.out.println("\tInvalid Option");

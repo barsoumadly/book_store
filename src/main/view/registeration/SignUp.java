@@ -48,7 +48,7 @@ public class SignUp extends OptionUtilities {
         Customer customer = new Customer();
         SignUpForUser(UserFileHandling.customerFilePath, customer);
         Customer.customerData.add(customer);
-        CustomerOptionList.displayCustomerOptionsMenu(
+        CustomerOptionList.displayOptionsMenu(
                 customer.getFirstName());
     }
 

@@ -43,6 +43,6 @@ public class LogIn extends OptionUtilities {
         String name = Customer.emailValidation(
                 ConsoleReader.readEmailAddress()
                 , Customer.customerData);
-        CustomerOptionList.displayCustomerOptionsMenu(name);
+        CustomerOptionList.displayOptionsMenu(name);
     }
 }

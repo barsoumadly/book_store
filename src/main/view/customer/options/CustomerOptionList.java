@@ -40,7 +40,7 @@ public class CustomerOptionList {
         return userOptions.get(option);
     }
 
-    public static void displayCustomerOptionsMenu(String customerName) {
+    public static void displayOptionsMenu(String customerName) {
         CustomerOptionList.customerName = customerName;
         System.out.println("\t\t\t ***  Welcome " +
                 customerName + "  ***");
@@ -67,7 +67,7 @@ public class CustomerOptionList {
             default -> {
                 System.out.println("\tInvalid Option");
                 ConsoleReader.makeSpace();
-                displayCustomerOptionsMenu(customerName);
+                displayOptionsMenu(customerName);
             }
         }
     }
@@ -77,11 +77,12 @@ public class CustomerOptionList {
                 getKeyByCustomer(customerName);
         if (key != null) {
             CustomerFileHandling.displayValueOfKey(key);
+            BuyUtilities.displayOptionsMenu();
         } else {
             System.out.println("\tNo books added to cart");
         }
         ConsoleReader.makeSpace();
-        displayCustomerOptionsMenu(customerName);
+        displayOptionsMenu(customerName);
     }
 
     private static void borrow() {
@@ -100,7 +101,7 @@ public class CustomerOptionList {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        displayCustomerOptionsMenu(customerName);
+        displayOptionsMenu(customerName);
     }
 
     private static void Books() {
@@ -143,6 +144,6 @@ public class CustomerOptionList {
             e.printStackTrace();
 
         }
-        CustomerOptionList.displayCustomerOptionsMenu(customerName);
+        CustomerOptionList.displayOptionsMenu(customerName);
     }
 }

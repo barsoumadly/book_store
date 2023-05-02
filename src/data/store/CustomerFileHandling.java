@@ -1,17 +1,18 @@
 package data.store;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.Set;
 
 public class CustomerFileHandling {
-    public final static String cartFilePath =
+    private final static String cartFilePath =
             "src/data/store/cart_books.txt";
-    public static HashMap<String, ArrayList<String>> cartBooks
+    public static final HashMap<String, ArrayList<String>> cartBooks
             = new HashMap<>();
+    public static final ArrayList<String> keys = new ArrayList<>();
 
     public static void readCartFile() {
         try {
@@ -34,10 +35,10 @@ public class CustomerFileHandling {
             books.add(data.get(i));
         }
         cartBooks.put(data.get(0), books);
+        keys.add(data.get(0));
     }
 
     public static String getKeyByCustomer(String customerName) {
-        Set<String> keys = cartBooks.keySet();
         for (String key : keys) {
             if (key.contains(customerName)) {
                 return key;
@@ -52,6 +53,27 @@ public class CustomerFileHandling {
             System.out.println("\nBook name: " + books.get(i) +
                     "\nPrice: " + books.get(i + 1) + "$"
                     + "\n**---------------------------------**");
+        }
+    }
+
+    public static ArrayList<String> getValueByKey(String key) {
+        return cartBooks.get(key);
+    }
+
+    public static void writeCartFile() {
+        try {
+            FileWriter myFile = new FileWriter(cartFilePath);
+            for (String key : keys) {
+                ArrayList<String> bookList = cartBooks.get(key);
+                myFile.write(key + ',');
+                for (String s : bookList) {
+                    myFile.write(s + ',');
+                }
+                myFile.write('\n');
+            }
+            myFile.close();
+        } catch (IOException error) {
+            error.printStackTrace();
         }
     }
 }
