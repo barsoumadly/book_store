@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class CartFileHandling {
+abstract public class CartFileHandling {
     public final static String cartFilePath
             = "src/data/store/text/files/cart_books.txt";
     public static final HashMap<String, ArrayList<String>> cartBooks

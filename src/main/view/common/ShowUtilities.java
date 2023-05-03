@@ -1,9 +1,8 @@
-package main.view.customer.options;
+package main.view.common;
 
 import main.classes.Book;
 import main.view.administrator.options.AdministratorOptionList;
-import main.view.common.CommonUtilities;
-import main.view.common.ConsoleReader;
+import main.view.customer.options.CustomerOptionList;
 
 import java.util.HashMap;
 

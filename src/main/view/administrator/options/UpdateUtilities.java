@@ -8,7 +8,7 @@ import main.view.customer.options.SearchUtilities;
 
 import java.util.HashMap;
 
-public class UpdateUtilities {
+abstract public class UpdateUtilities {
     private enum Options {
         BOOK_NAME, BOOK_TYPE, AUTHOR_NAME,
         PRICE, RETURN_BACK, WRONG
@@ -51,7 +51,8 @@ public class UpdateUtilities {
             case AUTHOR_NAME -> updateAuthorName();
             case BOOK_TYPE -> updateBookType();
             case PRICE -> updatePrice();
-            case RETURN_BACK -> returnBack();
+            case RETURN_BACK -> CommonUtilities.
+                    returnBackToAdministratorMenu();
             default -> {
                 System.out.println("\tInvalid Option");
                 displayOptions();
@@ -104,15 +105,8 @@ public class UpdateUtilities {
 
     private static void performUpdate(String change, Book book) {
         BookFileHandling.rewriteFile(Book.books);
-        System.out.println("\t" + change + " is updated successfully");
         SearchUtilities.searchForBookName(book.getName());
+        System.out.println("\t" + change + " is updated successfully");
         displayOptions();
-    }
-
-    private static void returnBack() {
-        ConsoleReader.makeSpace();
-        AdministratorOptionList.
-                displayOptionsMenu(
-                        AdministratorOptionList.administratorName);
     }
 }

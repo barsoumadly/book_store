@@ -1,16 +1,12 @@
 package main.view.administrator.options;
 
-import main.classes.Book;
-import data.store.BookFileHandling;
 import main.view.common.ConsoleReader;
-import main.view.customer.options.ShowUtilities;
+import main.view.common.ShowUtilities;
 import main.view.menu.Menu;
-import main.view.customer.options.SearchUtilities;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AdministratorOptionList {
+abstract public class AdministratorOptionList {
     public static String administratorName;
 
     private enum Options {
@@ -55,8 +51,8 @@ public class AdministratorOptionList {
             case SHOW_BOOK_LIST -> ShowUtilities.displayOptionsMenu();
             case UPDATE_BOOK_DETAILS -> UpdateUtilities.
                     displayOptions();
-            case ADD_BOOK -> addBook();
-            case DELETE_BOOK -> deleteBook();
+            case ADD_BOOK -> AddUtilities.displayOptionsMenu();
+            case DELETE_BOOK -> DeleteUtilities.displayOptionsMenu();
             case LOGOUT -> {
                 ConsoleReader.makeSpace();
                 Menu.displayMainView();
@@ -67,29 +63,5 @@ public class AdministratorOptionList {
                 displayOptionsMenu(administratorName);
             }
         }
-    }
-
-    private static void addBook() {
-        ArrayList<String> bookDetails = new ArrayList<>();
-        bookDetails.add(ConsoleReader.readBookName());
-        bookDetails.add(ConsoleReader.readAuthorName());
-        bookDetails.add(ConsoleReader.readBookType());
-        bookDetails.add(ConsoleReader.readBookPrice());
-        BookFileHandling.createBook(bookDetails);
-        BookFileHandling.writeFile(bookDetails);
-    }
-
-    private static void deleteBook() {
-        boolean isFound = false;
-        String bookName = ConsoleReader.readBookName();
-        SearchUtilities.searchForBookName(bookName);
-        for (int i = 0; i < Book.books.size(); i++) {
-            if (Book.books.get(i).getName().equals(bookName)) {
-                isFound = true;
-                Book.books.remove(i);
-                break;
-            }
-        }
-/*        UpdateUtilities.performRewrite();*/
     }
 }

@@ -6,7 +6,7 @@ import main.view.registeration.SignUp;
 
 import java.util.HashMap;
 
-public class MenuOptions {
+abstract public class MenuOptions {
     private enum Options {
         SIGNUP, LOGIN, EXIT, WRONG
     }

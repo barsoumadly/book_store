@@ -6,7 +6,7 @@ import data.store.CartFileHandling;
 import data.store.UserFileHandling;
 import main.view.common.ConsoleReader;
 
-public class Menu {
+abstract public class Menu {
     public static void startApplication() {
         UserFileHandling.readFile();
         CartFileHandling.readFile();

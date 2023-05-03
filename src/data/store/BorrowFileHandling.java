@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class BorrowFileHandling {
+abstract public class BorrowFileHandling {
     public final static String borrowFilePath
             = "src/data/store/text/files/borrowed_books.txt";
     public static final ArrayList<String> borrowKeys = new ArrayList<>();

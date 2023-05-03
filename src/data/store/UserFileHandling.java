@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UserFileHandling {
+abstract public class UserFileHandling {
     public final static String customerFilePath =
             "src/data/store/text/files/customers_data.txt";
     public final static String administratorFilePath =

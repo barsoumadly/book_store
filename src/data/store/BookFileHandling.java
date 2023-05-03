@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class BookFileHandling {
+abstract public class BookFileHandling {
     public final static String bookFilePath =
             "src/data/store/text/files/book_list.txt";
 
