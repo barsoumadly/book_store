@@ -88,9 +88,21 @@ abstract public class ConsoleReader {
         return scanner.nextLine();
     }
 
+    public static String readNewBookName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter new book name: ");
+        return scanner.nextLine();
+    }
+
     public static String readAuthorName() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter author name: ");
+        return scanner.nextLine();
+    }
+
+    public static String readNewAuthorName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter new author name: ");
         return scanner.nextLine();
     }
 
@@ -100,9 +112,21 @@ abstract public class ConsoleReader {
         return scanner.nextLine();
     }
 
-    public static String readprice() {
+    public static String readNewBookType() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter price: ");
+        System.out.print("Enter new book type: ");
+        return scanner.nextLine();
+    }
+
+    public static String readBookPrice() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter book price: ");
+        return scanner.nextLine();
+    }
+
+    public static String readNewBookPrice() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter new book price: ");
         return scanner.nextLine();
     }
 

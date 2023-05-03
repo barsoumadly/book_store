@@ -1,6 +1,7 @@
 package main.view.common;
 
 import main.classes.Book;
+import main.view.administrator.options.AdministratorOptionList;
 import main.view.customer.options.CustomerAdvancedOptionList;
 import main.view.customer.options.CustomerOptionList;
 import main.classes.Customer;
@@ -85,5 +86,11 @@ abstract public class CommonUtilities {
         ConsoleReader.makeSpace();
         CustomerAdvancedOptionList.displayMenuOptions(
                 CustomerOptionList.customerName);
+    }
+
+    public static void returnBackToAdministratorMenu() {
+        ConsoleReader.makeSpace();
+        AdministratorOptionList.displayOptionsMenu(
+                AdministratorOptionList.administratorName);
     }
 }

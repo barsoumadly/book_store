@@ -77,7 +77,7 @@ abstract public class SearchUtilities {
                     toLowerCase();
             searchForBookType(bookType);
         } else if (option == Options.SEARCH_PRICE) {
-            String price = ConsoleReader.readprice();
+            String price = ConsoleReader.readBookPrice();
             searchForPrice(price);
         } else {
             CommonUtilities.returnBackToCustomerMenu();

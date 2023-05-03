@@ -2,6 +2,7 @@ package main.view.administrator.options;
 
 import main.classes.Book;
 import data.store.BookFileHandling;
+import main.view.common.CommonUtilities;
 import main.view.common.ConsoleReader;
 import main.view.customer.options.SearchUtilities;
 
@@ -18,8 +19,8 @@ public class UpdateUtilities {
 
     private static void setOptions() {
         updateOptions.put("1", Options.BOOK_NAME);
-        updateOptions.put("2", Options.BOOK_TYPE);
-        updateOptions.put("3", Options.AUTHOR_NAME);
+        updateOptions.put("2", Options.AUTHOR_NAME);
+        updateOptions.put("3", Options.BOOK_TYPE);
         updateOptions.put("4", Options.PRICE);
         updateOptions.put("5", Options.RETURN_BACK);
     }
@@ -32,11 +33,13 @@ public class UpdateUtilities {
         return updateOptions.get(option);
     }
 
-    public static void displayOptions(String administratorName) {
-        AdministratorOptionList.administratorName = administratorName;
+    public static void displayOptions() {
+        ConsoleReader.makeSpace();
+        System.out.println("\t\t\t ***  Welcome " +
+                AdministratorOptionList.administratorName + "  ***");
         System.out.println("\t1- Update book name");
-        System.out.println("\t2- Update book type");
-        System.out.println("\t3- Update author name");
+        System.out.println("\t2- Update author name");
+        System.out.println("\t3- Update book type");
         System.out.println("\t4- Update price");
         System.out.println("\t5- Return back");
         executeOptions(ConsoleReader.getOption());
@@ -45,84 +48,65 @@ public class UpdateUtilities {
     private static void executeOptions(String option) {
         switch (mapper(option)) {
             case BOOK_NAME -> updateBookName();
-            case BOOK_TYPE -> updateBookType();
             case AUTHOR_NAME -> updateAuthorName();
+            case BOOK_TYPE -> updateBookType();
             case PRICE -> updatePrice();
             case RETURN_BACK -> returnBack();
             default -> {
                 System.out.println("\tInvalid Option");
-                returnBack();
+                displayOptions();
             }
         }
     }
 
     private static void updateBookName() {
-        boolean isFound = false;
-        String bookName = ConsoleReader.readBookName();
-        SearchUtilities.searchForBookName(bookName);
-        for (int i = 0; i < Book.books.size(); i++) {
-            if (Book.books.get(i).getName().equals(bookName)) {
-                isFound = true;
-                String newBookName = ConsoleReader.readBookName();
-                Book.books.get(i).setName(newBookName);
-                break;
-            }
-        }
-        performRewrite(isFound);
+        Book book = getBook();
+        String newBookName = ConsoleReader.readNewBookName();
+        book.setName(newBookName);
+        performUpdate("Book name", book);
     }
 
     private static void updateBookType() {
-        boolean isFound = false;
-        String bookName = ConsoleReader.readBookName();
-        SearchUtilities.searchForBookName(bookName);
-        for (int i = 0; i < Book.books.size(); i++) {
-            if (Book.books.get(i).getName().equals(bookName)) {
-                isFound = true;
-                String newBookType = ConsoleReader.readBookType();
-                Book.books.get(i).setType(newBookType);
-                break;
-            }
-        }
-        performRewrite(isFound);
+        Book book = getBook();
+        String newBookType = ConsoleReader.readNewBookType();
+        book.setType(newBookType);
+        performUpdate("Book type", book);
     }
 
     private static void updateAuthorName() {
-        boolean isFound = false;
-        String bookName = ConsoleReader.readBookName();
-        SearchUtilities.searchForBookName(bookName);
-        for (int i = 0; i < Book.books.size(); i++) {
-            if (Book.books.get(i).getName().equals(bookName)) {
-                isFound = true;
-                String newAuthorName = ConsoleReader.readAuthorName();
-                Book.books.get(i).setAuthorName(newAuthorName);
-                break;
-            }
-        }
-        performRewrite(isFound);
+        Book book = getBook();
+        String newAuthorName = ConsoleReader.readNewAuthorName();
+        book.setAuthorName(newAuthorName);
+        performUpdate("Book author name", book);
     }
 
     private static void updatePrice() {
-        boolean isFound = false;
-        String bookName = ConsoleReader.readBookName();
-        SearchUtilities.searchForBookName(bookName);
-        for (int i = 0; i < Book.books.size(); i++) {
-            if (Book.books.get(i).getName().equals(bookName)) {
-                isFound = true;
-                String newPrice = ConsoleReader.readprice();
-                Book.books.get(i).setPrice(newPrice);
-                break;
-            }
-        }
-        performRewrite(isFound);
+        Book book = getBook();
+        String newPrice = ConsoleReader.readNewBookPrice();
+        book.setPrice(newPrice);
+        performUpdate("Book price", book);
     }
 
-    protected static void performRewrite(boolean isFound) {
-        BookFileHandling.rewriteFile(Book.books);
-        if (!isFound) {
-            System.out.println("\tNot found");
-            ConsoleReader.makeSpace();
+    private static Book getBook() {
+        String bookName = ConsoleReader.readBookName();
+        if (CommonUtilities.isBookExist(bookName)) {
+            SearchUtilities.searchForBookName(bookName);
+            for (int i = 0; i < Book.books.size(); i++) {
+                if (Book.books.get(i).getName().equals(bookName)) {
+                    return Book.books.get(i);
+                }
+            }
+        } else {
+            System.out.println("\tInvalid book name");
         }
-        returnBack();
+        return getBook();
+    }
+
+    private static void performUpdate(String change, Book book) {
+        BookFileHandling.rewriteFile(Book.books);
+        System.out.println("\t" + change + " is updated successfully");
+        SearchUtilities.searchForBookName(book.getName());
+        displayOptions();
     }
 
     private static void returnBack() {

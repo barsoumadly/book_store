@@ -1,6 +1,7 @@
 package main.view.customer.options;
 
 import main.classes.Book;
+import main.view.administrator.options.AdministratorOptionList;
 import main.view.common.CommonUtilities;
 import main.view.common.ConsoleReader;
 
@@ -33,9 +34,7 @@ abstract public class ShowUtilities {
     }
 
     public static void displayOptionsMenu() {
-        ConsoleReader.makeSpace();
-        System.out.println("\t\t\t ***  Welcome " +
-                CustomerOptionList.customerName + "  ***");
+        displayWelcome();
         System.out.println("\t1- Adventure books");
         System.out.println("\t2- Historical books");
         System.out.println("\t3- Fantasy books");
@@ -43,6 +42,17 @@ abstract public class ShowUtilities {
         System.out.println("\t5- All books");
         System.out.println("\t6- Return back");
         executeOption(ConsoleReader.getOption());
+    }
+
+    private static void displayWelcome() {
+        ConsoleReader.makeSpace();
+        if (CustomerOptionList.customerName != null) {
+            System.out.println("\t\t\t ***  Welcome " +
+                    CustomerOptionList.customerName + "  ***");
+        } else {
+            System.out.println("\t\t\t ***  Welcome " +
+                    AdministratorOptionList.administratorName + "  ***");
+        }
     }
 
     private static void executeOption(String option) {
@@ -56,8 +66,15 @@ abstract public class ShowUtilities {
             case SCIENCE_FICTION -> showBookList(
                     getBookType(Options.SCIENCE_FICTION));
             case ALL_BOOKS -> showAllBooks();
-            case RETURN_BACK -> CommonUtilities
-                    .returnBackToCustomerMenu();
+            case RETURN_BACK -> {
+                if (CustomerOptionList.customerName != null) {
+                    CommonUtilities
+                            .returnBackToCustomerMenu();
+                } else {
+                    CommonUtilities.
+                            returnBackToAdministratorMenu();
+                }
+            }
             default -> {
                 System.out.println("\tInvalid option");
                 displayOptionsMenu();
@@ -89,13 +106,21 @@ abstract public class ShowUtilities {
                 System.out.println(Book.books.get(i).toString());
             }
         }
-        CommonUtilities.goToAdvancedMenu();
+        returnBack();
     }
 
     private static void showAllBooks() {
         for (int i = 0; i < Book.books.size(); i++) {
             System.out.println(Book.books.get(i).toString());
         }
-        CommonUtilities.goToAdvancedMenu();
+        returnBack();
+    }
+
+    private static void returnBack() {
+        if (CustomerOptionList.customerName != null) {
+            CommonUtilities.goToAdvancedMenu();
+        } else {
+            CommonUtilities.returnBackToAdministratorMenu();
+        }
     }
 }

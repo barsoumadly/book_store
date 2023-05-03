@@ -3,6 +3,7 @@ package main.view.administrator.options;
 import main.classes.Book;
 import data.store.BookFileHandling;
 import main.view.common.ConsoleReader;
+import main.view.customer.options.ShowUtilities;
 import main.view.menu.Menu;
 import main.view.customer.options.SearchUtilities;
 
@@ -21,9 +22,9 @@ public class AdministratorOptionList {
             administratorOptions = new HashMap<>();
 
     private static void setMenuOptions() {
-        administratorOptions.put("1", Options.SHOW_BOOK_LIST);
-        administratorOptions.put("2", Options.UPDATE_BOOK_DETAILS);
-        administratorOptions.put("3", Options.ADD_BOOK);
+        administratorOptions.put("1", Options.ADD_BOOK);
+        administratorOptions.put("2", Options.SHOW_BOOK_LIST);
+        administratorOptions.put("3", Options.UPDATE_BOOK_DETAILS);
         administratorOptions.put("4", Options.DELETE_BOOK);
         administratorOptions.put("5", Options.LOGOUT);
     }
@@ -41,9 +42,9 @@ public class AdministratorOptionList {
         AdministratorOptionList.administratorName = administratorName;
         System.out.println("\t\t\t ***  Welcome " +
                 administratorName + "  ***");
-        System.out.println("\t1- Show book list");
-        System.out.println("\t2- Update book details");
-        System.out.println("\t3- Add a book");
+        System.out.println("\t1- Add a book");
+        System.out.println("\t2- Show book list");
+        System.out.println("\t3- Update book details");
         System.out.println("\t4- Delete a book");
         System.out.println("\t5- Log out");
         executeOption(ConsoleReader.getOption());
@@ -51,9 +52,9 @@ public class AdministratorOptionList {
 
     private static void executeOption(String option) {
         switch (mapper(option)) {
-            case SHOW_BOOK_LIST -> showBookList();
+            case SHOW_BOOK_LIST -> ShowUtilities.displayOptionsMenu();
             case UPDATE_BOOK_DETAILS -> UpdateUtilities.
-                    displayOptions(administratorName);
+                    displayOptions();
             case ADD_BOOK -> addBook();
             case DELETE_BOOK -> deleteBook();
             case LOGOUT -> {
@@ -68,18 +69,12 @@ public class AdministratorOptionList {
         }
     }
 
-    private static void showBookList() {
-        for (int i = 0; i < Book.books.size(); i++) {
-            System.out.println(Book.books.get(i));
-        }
-    }
-
     private static void addBook() {
         ArrayList<String> bookDetails = new ArrayList<>();
         bookDetails.add(ConsoleReader.readBookName());
         bookDetails.add(ConsoleReader.readAuthorName());
         bookDetails.add(ConsoleReader.readBookType());
-        bookDetails.add(ConsoleReader.readprice());
+        bookDetails.add(ConsoleReader.readBookPrice());
         BookFileHandling.createBook(bookDetails);
         BookFileHandling.writeFile(bookDetails);
     }
@@ -95,6 +90,6 @@ public class AdministratorOptionList {
                 break;
             }
         }
-        UpdateUtilities.performRewrite(isFound);
+/*        UpdateUtilities.performRewrite();*/
     }
 }
