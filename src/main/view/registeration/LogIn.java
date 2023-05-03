@@ -36,7 +36,11 @@ abstract public class LogIn extends OptionUtilities {
         String name = Administrator.emailValidation(
                 ConsoleReader.readEmailAddress()
                 , Administrator.administratorData);
-        AdministratorOptionList.displayOptionsMenu(name);
+        if (!name.equals("No name")) {
+            AdministratorOptionList.displayOptionsMenu(name);
+        } else {
+            Menu.displayMainView();
+        }
     }
 
     private static void loginInAsCustomer() {

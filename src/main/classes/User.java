@@ -16,15 +16,6 @@ public class User {
         this.lastName = "Unknown name";
     }
 
-    public User(String firstName, String lastName, String emailAddress,
-                String password, String phone) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.emailAddress = emailAddress;
-        this.password = password;
-        this.phone = phone;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -65,8 +56,8 @@ public class User {
         this.phone = phone;
     }
 
-    public static String emailValidation(String emailAddress
-            , ArrayList<User> userData) {
+    public static String emailValidation(
+            String emailAddress, ArrayList<User> userData) {
         int i = 0;
         String name = "No name";
         while (i < userData.size() && (!userData.get(i).getEmailAddress()
@@ -76,6 +67,8 @@ public class User {
         if (i < userData.size()) {
             name = userData.get(i).firstName;
             passwordValidation(userData.get(i), ConsoleReader.readPassword());
+        } else if (userData.equals(Administrator.administratorData)) {
+            newAdministratorEmailValidation(emailAddress, userData);
         } else {
             System.out.println("\tNot found");
             emailValidation(ConsoleReader.readEmailAddress(), userData);
@@ -89,6 +82,34 @@ public class User {
         } else {
             System.out.println("\tInvalid password");
             passwordValidation(user, ConsoleReader.readPassword());
+        }
+    }
+
+    private static void newAdministratorEmailValidation(
+            String emailAddress, ArrayList<User> userData) {
+        if (Administrator.inactiveAdministratorData.size() == 0) {
+            System.out.println("\tNot found");
+            emailValidation(ConsoleReader.readEmailAddress(), userData);
+        } else {
+            checkNewAdministratorEmail(emailAddress, userData);
+        }
+    }
+
+    private static void checkNewAdministratorEmail(
+            String emailAddress, ArrayList<User> userData) {
+        ArrayList<User> newAdministrator
+                = Administrator.inactiveAdministratorData;
+        for (int j = 0; j < newAdministrator.size(); j++) {
+            if (newAdministrator.get(j).
+                    getEmailAddress().equals(emailAddress)) {
+                passwordValidation(newAdministrator.get(j),
+                        ConsoleReader.readPassword());
+                System.out.println("\tEmail address still not activated");
+                break;
+            } else if (j == newAdministrator.size() - 1) {
+                System.out.println("\tNot found");
+                emailValidation(ConsoleReader.readEmailAddress(), userData);
+            }
         }
     }
 }

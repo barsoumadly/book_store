@@ -4,8 +4,6 @@ import data.store.UserFileHandling;
 import main.view.common.ConsoleReader;
 import main.view.menu.Menu;
 import main.view.menu.OptionUtilities;
-import main.view.administrator.options.AdministratorOptionList;
-import main.view.customer.options.CustomerOptionList;
 import main.classes.Administrator;
 import main.classes.Customer;
 import main.classes.User;
@@ -38,18 +36,16 @@ abstract public class SignUp extends OptionUtilities {
 
     private static void SignUpAsAdministrator() {
         Administrator administrator = new Administrator();
-        SignUpForUser(UserFileHandling.administratorFilePath, administrator);
-        Administrator.administratorData.add(administrator);
-        AdministratorOptionList.displayOptionsMenu(
-                administrator.getFirstName());
+        SignUpForUser(UserFileHandling.newAdministratorFilePath, administrator);
+        Administrator.inactiveAdministratorData.add(administrator);
+        performSignUp();
     }
 
     private static void SignUpAsCustomer() {
         Customer customer = new Customer();
         SignUpForUser(UserFileHandling.customerFilePath, customer);
         Customer.customerData.add(customer);
-        CustomerOptionList.displayOptionsMenu(
-                customer.getFirstName());
+        performSignUp();
     }
 
     private static void SignUpForUser(String filePath, User user) {
@@ -60,7 +56,7 @@ abstract public class SignUp extends OptionUtilities {
                     customerFilePath, data);
         } else {
             UserFileHandling.writeFile(UserFileHandling.
-                    administratorFilePath, data);
+                    newAdministratorFilePath, data);
         }
         ConsoleReader.makeSpace();
     }
@@ -79,5 +75,10 @@ abstract public class SignUp extends OptionUtilities {
         data.add(password);
         data.add(ConsoleReader.readPhoneNumber());
         return data;
+    }
+
+    private static void performSignUp() {
+        ConsoleReader.makeSpace();
+        Menu.displayMainView();
     }
 }

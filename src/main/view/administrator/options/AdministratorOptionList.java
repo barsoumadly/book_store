@@ -11,7 +11,7 @@ abstract public class AdministratorOptionList {
 
     private enum Options {
         SHOW_BOOK_LIST, UPDATE_BOOK_DETAILS,
-        ADD_BOOK, DELETE_BOOK, LOGOUT, WRONG
+        ADD_BOOK, DELETE_BOOK, GIVE_ACCESS, LOGOUT, WRONG
     }
 
     private static final HashMap<String, Options>
@@ -22,7 +22,8 @@ abstract public class AdministratorOptionList {
         administratorOptions.put("2", Options.SHOW_BOOK_LIST);
         administratorOptions.put("3", Options.UPDATE_BOOK_DETAILS);
         administratorOptions.put("4", Options.DELETE_BOOK);
-        administratorOptions.put("5", Options.LOGOUT);
+        administratorOptions.put("5", Options.GIVE_ACCESS);
+        administratorOptions.put("6", Options.LOGOUT);
     }
 
     private static Options mapper(String option) {
@@ -42,7 +43,8 @@ abstract public class AdministratorOptionList {
         System.out.println("\t2- Show book list");
         System.out.println("\t3- Update book details");
         System.out.println("\t4- Delete a book");
-        System.out.println("\t5- Log out");
+        System.out.println("\t5- Give an access");
+        System.out.println("\t6- Log out");
         executeOption(ConsoleReader.getOption());
     }
 
@@ -53,6 +55,7 @@ abstract public class AdministratorOptionList {
                     displayOptions();
             case ADD_BOOK -> AddUtilities.displayOptionsMenu();
             case DELETE_BOOK -> DeleteUtilities.displayOptionsMenu();
+            case GIVE_ACCESS -> GiveAccessUtilities.displayOptionsMenu();
             case LOGOUT -> {
                 ConsoleReader.makeSpace();
                 Menu.displayMainView();

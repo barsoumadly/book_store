@@ -15,6 +15,8 @@ abstract public class UserFileHandling {
             "src/data/store/text/files/customers_data.txt";
     public final static String administratorFilePath =
             "src/data/store/text/files/administrators_data.txt";
+    public final static String newAdministratorFilePath =
+            "src/data/store/text/files/inactivate_administrator_account.txt";
 
     public static void readFile() {
         ArrayList<ArrayList<String>> customerData = getDataFromFile(
@@ -22,7 +24,11 @@ abstract public class UserFileHandling {
         addCustomer(customerData);
         ArrayList<ArrayList<String>> administratorData = getDataFromFile(
                 administratorFilePath);
-        addAdministrator(administratorData);
+        addAdministrator(administratorData, administratorFilePath);
+
+        ArrayList<ArrayList<String>> newAdministratorData
+                = getDataFromFile(newAdministratorFilePath);
+        addAdministrator(newAdministratorData, newAdministratorFilePath);
     }
 
     private static ArrayList<ArrayList<String>>
@@ -67,11 +73,15 @@ abstract public class UserFileHandling {
     }
 
     public static void addAdministrator(ArrayList<ArrayList
-            <String>> administratorData) {
+            <String>> administratorData, String filePath) {
         for (ArrayList<String> administratorDatum : administratorData) {
             Administrator administrator = new Administrator();
             createUser(administrator, administratorDatum);
-            Administrator.administratorData.add(administrator);
+            if (filePath.equals(administratorFilePath)) {
+                Administrator.administratorData.add(administrator);
+            } else {
+                Administrator.inactiveAdministratorData.add(administrator);
+            }
         }
     }
 
@@ -85,9 +95,35 @@ abstract public class UserFileHandling {
 
     public static void writeFile(String filePath, ArrayList<String> data) {
         try {
-            FileWriter myFile = new FileWriter(filePath, true);
-            myFile.write('\n' + data.get(0) + ',' + data.get(1) + ',' +
-                    data.get(2) + ',' + data.get(3) + ',' + data.get(4));
+            FileWriter myFile;
+            if (filePath.equals(administratorFilePath)) {
+                myFile = new FileWriter(filePath, true);
+                myFile.write('\n' + data.get(0) + ',' + data.get(1) + ',' +
+                        data.get(2) + ',' + data.get(3) + ',' + data.get(4));
+            } else {
+                myFile = new FileWriter(filePath);
+                myFile.write(data.get(0) + ',' + data.get(1) + ',' +
+                        data.get(2) + ',' + data.get(3) + ',' + data.get(4) + '\n');
+            }
+            myFile.close();
+        } catch (IOException error) {
+            System.out.println("An error occurred");
+            error.printStackTrace();
+        }
+    }
+
+    public static void rewriteInactiveAdministratorFile() {
+        try {
+            FileWriter myFile = new FileWriter(newAdministratorFilePath);
+            ArrayList<User> newAdministrator
+                    = Administrator.inactiveAdministratorData;
+            for (User user : newAdministrator) {
+                myFile.write(user.getFirstName() + ','
+                        + user.getLastName() + ','
+                        + user.getEmailAddress()
+                        + ',' + user.getPassword() + ','
+                        + user.getPassword() + '\n');
+            }
             myFile.close();
         } catch (IOException error) {
             System.out.println("An error occurred");
