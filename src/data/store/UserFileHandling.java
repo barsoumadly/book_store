@@ -96,12 +96,13 @@ abstract public class UserFileHandling {
     public static void writeFile(String filePath, ArrayList<String> data) {
         try {
             FileWriter myFile;
-            if (filePath.equals(administratorFilePath)) {
+            if (filePath.equals(administratorFilePath) ||
+                    filePath.equals(customerFilePath)) {
                 myFile = new FileWriter(filePath, true);
                 myFile.write('\n' + data.get(0) + ',' + data.get(1) + ',' +
                         data.get(2) + ',' + data.get(3) + ',' + data.get(4));
             } else {
-                myFile = new FileWriter(filePath);
+                myFile = new FileWriter(filePath, true);
                 myFile.write(data.get(0) + ',' + data.get(1) + ',' +
                         data.get(2) + ',' + data.get(3) + ',' + data.get(4) + '\n');
             }

@@ -77,9 +77,7 @@ public class User {
     }
 
     private static void passwordValidation(User user, String password) {
-        if (user.getPassword().equals(password)) {
-            ConsoleReader.makeSpace();
-        } else {
+        if (!user.getPassword().equals(password)) {
             System.out.println("\tInvalid password");
             passwordValidation(user, ConsoleReader.readPassword());
         }
@@ -104,7 +102,8 @@ public class User {
                     getEmailAddress().equals(emailAddress)) {
                 passwordValidation(newAdministrator.get(j),
                         ConsoleReader.readPassword());
-                System.out.println("\tEmail address still not activated");
+                System.out.println("\tYour email is still not activated");
+                ConsoleReader.makeSpace();
                 break;
             } else if (j == newAdministrator.size() - 1) {
                 System.out.println("\tNot found");

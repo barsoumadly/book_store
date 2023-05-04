@@ -56,9 +56,9 @@ abstract public class BorrowUtilities {
             BorrowFileHandling.displayValueOfKey(key);
             BorrowUtilities.displayOptionsMenu();
         } else {
-            System.out.println("\tNo books was borrowed");
+            System.out.println("\tCart is empty");
+            CommonUtilities.returnBackToCustomerMenu();
         }
-        CommonUtilities.returnBackToCustomerMenu();
     }
 
     private static void borrowBook() {
@@ -134,6 +134,6 @@ abstract public class BorrowUtilities {
     private static void cartIsFull() {
         System.out.println("\tThe cart is carrying already 1 book");
         System.out.println("\tCart is full");
-        System.out.println("\tCart can be held only 1 books");
+        System.out.println("\tCart can be held only 1 book");
     }
 }

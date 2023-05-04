@@ -37,6 +37,7 @@ abstract public class LogIn extends OptionUtilities {
                 ConsoleReader.readEmailAddress()
                 , Administrator.administratorData);
         if (!name.equals("No name")) {
+            ConsoleReader.makeSpace();
             AdministratorOptionList.displayOptionsMenu(name);
         } else {
             Menu.displayMainView();
@@ -47,6 +48,7 @@ abstract public class LogIn extends OptionUtilities {
         String name = Customer.emailValidation(
                 ConsoleReader.readEmailAddress()
                 , Customer.customerData);
+        ConsoleReader.makeSpace();
         CustomerOptionList.displayOptionsMenu(name);
     }
 }

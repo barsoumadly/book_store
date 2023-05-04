@@ -36,20 +36,23 @@ abstract public class SignUp extends OptionUtilities {
 
     private static void SignUpAsAdministrator() {
         Administrator administrator = new Administrator();
-        SignUpForUser(UserFileHandling.newAdministratorFilePath, administrator);
+        SignUpForUser(UserFileHandling.newAdministratorFilePath
+                , administrator, Administrator.inactiveAdministratorData);
         Administrator.inactiveAdministratorData.add(administrator);
         performSignUp();
     }
 
     private static void SignUpAsCustomer() {
         Customer customer = new Customer();
-        SignUpForUser(UserFileHandling.customerFilePath, customer);
+        SignUpForUser(UserFileHandling.customerFilePath
+                , customer, Customer.customerData);
         Customer.customerData.add(customer);
         performSignUp();
     }
 
-    private static void SignUpForUser(String filePath, User user) {
-        ArrayList<String> data = getData();
+    private static void SignUpForUser(
+            String filePath, User user, ArrayList<User> userData) {
+        ArrayList<String> data = getData(userData);
         UserFileHandling.createUser(user, data);
         if (filePath.equals(UserFileHandling.customerFilePath)) {
             UserFileHandling.writeFile(UserFileHandling.
@@ -61,11 +64,11 @@ abstract public class SignUp extends OptionUtilities {
         ConsoleReader.makeSpace();
     }
 
-    private static ArrayList<String> getData() {
+    private static ArrayList<String> getData(ArrayList<User> userData) {
         ArrayList<String> data = new ArrayList<>();
         data.add(ConsoleReader.readFirstName());
         data.add(ConsoleReader.readLastName());
-        data.add(ConsoleReader.readEmailAddress());
+        data.add(getNewEmailAddress(userData));
         String password = ConsoleReader.readPassword();
         String confirmPassword = ConsoleReader.confirmPassword();
         while (!ConsoleReader.checkPasswordEquality(password,
@@ -77,8 +80,27 @@ abstract public class SignUp extends OptionUtilities {
         return data;
     }
 
+    private static String getNewEmailAddress(ArrayList<User> userData) {
+        String emailAddress = ConsoleReader.readEmailAddress();
+        if (!isEmailExistBefore(emailAddress, userData)) {
+            return emailAddress;
+        } else {
+            System.out.println("\t Email address has already taken before");
+            return getNewEmailAddress(userData);
+        }
+    }
+
+    private static boolean isEmailExistBefore(
+            String emailAddress, ArrayList<User> userData) {
+        for (User userDatum : userData) {
+            if (userDatum.getEmailAddress().equals(emailAddress)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static void performSignUp() {
-        ConsoleReader.makeSpace();
         Menu.displayMainView();
     }
 }

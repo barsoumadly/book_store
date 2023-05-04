@@ -65,7 +65,6 @@ abstract public class KnowBillUtilities {
         } else {
             System.out.println("\tNo bill available");
         }
-        ConsoleReader.makeSpace();
         displayOptionsMenu();
     }
 
@@ -86,7 +85,6 @@ abstract public class KnowBillUtilities {
         } else {
             System.out.println("\tNo bill available");
         }
-        ConsoleReader.makeSpace();
         displayOptionsMenu();
     }
 

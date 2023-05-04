@@ -53,7 +53,7 @@ abstract public class BuyUtilities {
             CartFileHandling.displayValueOfKey(key);
             BuyUtilities.displayOptionsMenu();
         } else {
-            System.out.println("\tNo books added to cart");
+            System.out.println("\tCart is empty");
             CommonUtilities.returnBackToCustomerMenu();
         }
     }
