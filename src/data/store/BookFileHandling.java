@@ -10,7 +10,9 @@ import java.util.Scanner;
 
 abstract public class BookFileHandling {
     public final static String bookFilePath =
-            "src/data/store/text/files/book_list.txt";
+            String.format("%s/%s", System.getProperty("user.dir")
+                            .replace('\\', '/')
+                    , "src/data/store/text/files/book_list.txt");
 
     public static void readFile() {
         try {
@@ -40,14 +42,14 @@ abstract public class BookFileHandling {
         try {
             FileWriter myFile = new FileWriter(bookFilePath, true);
             myFile.write('\n' + data.get(0) + ',' + data.get(1)
-                    + ',' + data.get(2) + ','+ data.get(3));
+                    + ',' + data.get(2) + ',' + data.get(3));
             myFile.close();
         } catch (IOException error) {
             error.printStackTrace();
         }
     }
 
-    public static void rewriteFile(ArrayList<Book>books) {
+    public static void rewriteFile(ArrayList<Book> books) {
         try {
             FileWriter myFile = new FileWriter(bookFilePath);
             for (Book book : books) {

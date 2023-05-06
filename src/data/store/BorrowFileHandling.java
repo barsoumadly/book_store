@@ -8,7 +8,9 @@ import java.util.Scanner;
 
 abstract public class BorrowFileHandling {
     public final static String borrowFilePath
-            = "src/data/store/text/files/borrowed_books.txt";
+            = String.format("%s/%s", System.getProperty("user.dir")
+                    .replace('\\', '/')
+            , "src/data/store/text/files/borrowed_books.txt");
     public static final ArrayList<String> borrowKeys = new ArrayList<>();
     public static final HashMap<String, ArrayList<String>> borrowBooks
             = new HashMap<>();

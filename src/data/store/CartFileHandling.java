@@ -8,7 +8,9 @@ import java.util.Scanner;
 
 abstract public class CartFileHandling {
     public final static String cartFilePath
-            = "src/data/store/text/files/cart_books.txt";
+            = String.format("%s/%s", System.getProperty("user.dir")
+                    .replace('\\', '/')
+            , "src/data/store/text/files/cart_books.txt");
     public static final HashMap<String, ArrayList<String>> cartBooks
             = new HashMap<>();
     public static final ArrayList<String> cartKeys = new ArrayList<>();
