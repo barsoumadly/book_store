@@ -7,7 +7,7 @@ the guns of august,barbara w. tuchman,historical,23
 the red tent,anita diamant,classics,60
 the devil in the white city,erik larson,historical,45
 the book thief,markus zusak,historical,70
-Beloved,toni morrison,historical,88
+beloved,toni morrison,historical,88
 a wizard of earthsea,ursula k. le guin,fantasy,59
 the name of the wind,patrick rothfuss,fantasy,99
 the eye of the world,robert jordan,fantasy,72
