@@ -132,7 +132,7 @@ abstract public class UserFileHandling {
                         + user.getLastName() + ','
                         + user.getEmailAddress()
                         + ',' + user.getPassword() + ','
-                        + user.getPassword() + '\n');
+                        + user.getPhone() + '\n');
             }
             myFile.close();
         } catch (IOException error) {

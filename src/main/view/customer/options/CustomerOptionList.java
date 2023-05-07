@@ -59,6 +59,7 @@ abstract public class CustomerOptionList {
             case KNOW_BILL -> KnowBillUtilities
                     .displayOptionsMenu();
             case LOGOUT -> {
+                customerName = null;
                 ConsoleReader.makeSpace();
                 Menu.displayMainView();
             }

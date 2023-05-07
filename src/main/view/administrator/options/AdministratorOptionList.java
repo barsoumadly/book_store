@@ -57,6 +57,7 @@ abstract public class AdministratorOptionList {
             case DELETE_BOOK -> DeleteUtilities.displayOptionsMenu();
             case GIVE_ACCESS -> GiveAccessUtilities.displayOptionsMenu();
             case LOGOUT -> {
+                administratorName = null;
                 ConsoleReader.makeSpace();
                 Menu.displayMainView();
             }
